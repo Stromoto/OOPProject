@@ -45,6 +45,7 @@ public class LibraryItem {
        setPublisher(publisher);
        setStatus(status);
        setGenre(genre);
+       this.pastOwners = new ArrayList<>();
     }
     /*
     *       Setters and Getters
@@ -113,7 +114,7 @@ public class LibraryItem {
     }
 
     public ArrayList<Person> getPastOwners() {
-        return pastOwners;
+            return pastOwners;
     }
 
 

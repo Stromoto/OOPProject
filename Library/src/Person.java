@@ -122,7 +122,7 @@ public class Person {
 
     @Override
     public String toString() {
-        return name + ", " + age + " " + gender + ", residence:" + address + "\nphone number: " + phoneNumber;
+        return name + ", " + age + " [" + gender + "], Residence: " + address + "\nPhone number: " + phoneNumber;
     }
 
 }

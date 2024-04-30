@@ -212,8 +212,8 @@ public class Main {
                 String personID = input.nextLine();
                 boolean flag = false;
                 while (!flag) {     // Ensures ID is written correctly depending on the member's status
-                    if (personID.charAt(0) == 'A' && personMemberChoice == 's'
-                            || personID.charAt(0) == 'C' && personMemberChoice == 'c') {
+                    if ((personID.charAt(0) == 'A' && personMemberChoice == 's')
+                            || (personID.charAt(0) == 'C' && personMemberChoice == 'c')) {
                         flag = true;
                     }
                     else {
@@ -279,7 +279,7 @@ public class Main {
     public static void saveAllToFiles(ArrayList<Person> newMembers, ArrayList<LibraryItem> newItems) {
         String membersFilePath = "src\\members.txt";
         String itemsFilePath = "src\\items.txt";
-        try (FileWriter overwriteMembersFile = new FileWriter(membersFilePath, true)) {    // Prepares to overwrite members file
+        try (FileWriter overwriteMembersFile = new FileWriter(membersFilePath, false)) {    // Prepares to overwrite members file
             for (Person person : newMembers) {
                 String personType = (person instanceof Student) ? "S" : "C";
 
@@ -294,7 +294,7 @@ public class Main {
                                                       : (((Student)person).getStudentId()) + "&");
                 if (person.getBorrowedItem() != null) {
                     for (int i = 0; i < person.getBorrowedItem().size(); i++) {     // Begins adding items the Person has borrowed
-                        personInformation += person.getBorrowedItem().get(i);
+                        personInformation += person.getBorrowedItem().get(i).getSerialNumber();
                         personInformation += "##";
                     }
 
@@ -307,7 +307,7 @@ public class Main {
             e.printStackTrace();
         }
 
-        try (FileWriter overwriteItemsFile = new FileWriter(itemsFilePath)) {
+        try (FileWriter overwriteItemsFile = new FileWriter(itemsFilePath, false)) {
             for (LibraryItem item : newItems) {
                 String itemType = (item instanceof Book) ? "B" : "D";
 
@@ -324,8 +324,15 @@ public class Main {
 
                 if (item.getPastOwners() != null) {
                     for (int i = 0; i < item.getPastOwners().size(); i++) {
-                        itemInformation += item.getPastOwners().get(i);
-                        itemInformation += "&&";
+                        Person pastOwner = item.getPastOwners().get(i);
+                        if (pastOwner instanceof Student) {
+                            itemInformation += ((Student) pastOwner).getStudentId();
+                            itemInformation += "&&";
+                        }
+                        else {
+                            itemInformation += ((Civilian) pastOwner).getId();
+                            itemInformation += "&&";
+                        }
                     }
                 }
                 overwriteItemsFile.write(itemInformation);
@@ -341,8 +348,8 @@ public class Main {
     public static void LoadFromFiles(ArrayList<Person> members, ArrayList<LibraryItem> items) throws FileNotFoundException {
         ArrayList<String> borrowed= new ArrayList<>();
         ArrayList<String> owners= new ArrayList<>();
-        loadAllmembers(members,borrowed, "members.txt");
-        loadAllItems(items,owners, "items.txt");
+        loadAllmembers(members,borrowed, "src\\members.txt");
+        loadAllItems(items,owners, "src\\items.txt");
         adjustOwners(members, items, owners);
         adjustBorrowed(members, items,borrowed);
 
@@ -433,12 +440,12 @@ public class Main {
     public static Person searchMemberById(String id, ArrayList<Person> members) {
         for (Person person: members) {
             if (person instanceof Student) {
-                if (((Student)person).getStudentId().contains(id)) {
+                if (((Student)person).getStudentId().equals(id)) {
                     return person;
                 }
             }
             else {
-                if (((Civilian)person).getId().contains(id)) {
+                if (((Civilian)person).getId().equals(id)) {
                     return person;
                 }
             }

@@ -66,7 +66,7 @@ public class Civilian extends Person {
 
     @Override
     public String toString() {
-        return "Civilian: " +"ID: " + id + "\n" + super.toString() + "\ncurrent Balance: " + currentBal
+        return "ID: " + id + "\n" + super.toString() + "\ncurrent Balance: " + currentBal
                 + "\nnumber of borrowed items: " + super.getBorrowedItem().size();
     }
 

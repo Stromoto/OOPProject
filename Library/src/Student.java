@@ -59,6 +59,6 @@ public class Student extends Person {
 
     @Override
     public String toString() {
-        return "Student ID: " + studentId + "\n" + super.toString() + "\nnumber of borrowed items: "+ super.getBorrowedItem().size() ;
+        return "Student ID: " + studentId + "\n" + super.toString() + "\nNumber of borrowed items: "+ super.getBorrowedItem().size() ;
     }
 }

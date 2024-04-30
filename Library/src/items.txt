@@ -1,1 +1,3 @@
-B#40428165735#Joe#Joe Schmoe#Joe Schmoe Moe#a#Classical#1714312655811#420#
+B#40305203056#The adventures of Tom Sawyer #Puffin Books#Mark Twain#o#Novel#1716140235365#352#C1291015&&
+B#40305203246#Miss Benson Beetle#Random House Group#Rachel Joyce#r#Historical#1713547966989#368#
+D#40305203533#The X Files#Kim Manner#Chris Carter#a#Sci-Fi#1713548133505#239.0#
